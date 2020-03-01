@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/textView_users"
+        android:id="@+id/textView_measurements"
         android:layout_width="184dp"
         android:layout_height="106dp"
         android:text="Hello World!"
@@ -19,27 +19,27 @@
         app:layout_constraintVertical_bias="0.633" />
 
     <Button
-        android:id="@+id/button_users"
+        android:id="@+id/button_measurements"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Get users"
+        android:text="Get measurements"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.287"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.39" />
+        app:layout_constraintVertical_bias="0.385" />
 
     <Button
-        android:id="@+id/button_postUser"
+        android:id="@+id/button_postMeasurement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Post user"
+        android:text="Post measurement"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.683"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.39" />
+        app:layout_constraintVertical_bias="0.481" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

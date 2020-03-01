@@ -8,6 +8,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() , ServiceCallback {
 
@@ -15,66 +17,47 @@ class MainActivity : AppCompatActivity() , ServiceCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        button_users.setOnClickListener {
+        button_measurements.setOnClickListener {
             CoroutineScope(Dispatchers.Main).launch {
-                val users = CoroutineScope(Dispatchers.IO).async {
-                    //asynchronous call to REST endpoint
-                    getAllUsers()
-                    //getAllUsersAsynch()
+                val measurements = CoroutineScope(Dispatchers.IO).async {
+                    // TO DO
                 }.await()
 
                 //after the asynchronous call, we can use the result and show it in the Main thread
-                var usersStr = ""
-                for (user in users) {
-                    usersStr = "$usersStr\n${user.name} ${user.surname}"
-                }
+                var measurementsStr = ""
 
-                textView_users.text = usersStr
+                textView_measurements.text = measurementsStr
             }
         }
 
-        button_postUser.setOnClickListener {
-            CoroutineScope(Dispatchers.Main).launch {
-                CoroutineScope(Dispatchers.IO).async {
-                    //asynchronous call to REST endpoint
-                    postUser()
-                }.await()
-            }
+        button_postMeasurement.setOnClickListener {
+            // TO DO
+            // CoroutineScope MAIN launch
+            // CoroutineScope IO async
         }
     }
 
-    override fun onSuccess(users: ArrayList<User>) {
+    override fun onSuccess(measurements: ArrayList<Measurement>) {
         //after the asynchronous call, we can use the result and show it in the Main thread
-        Log.i("Main info", "updating Main UI")
-        var usersStr = ""
-        for (user in users) {
-            usersStr = "$usersStr\n${user.name} ${user.surname}"
-        }
-
-        textView_users.text = usersStr
+       // TO DO
     }
 
     override fun onError(throwable: Throwable) {
         TODO("not implemented")
     }
 
-    private fun getAllUsers(): ArrayList<User> {
-        val client = RetrofitRestClient()
-
-        return client.getUsers()
+    private fun getAllMeasurements(): ArrayList<Measurement> {
+        // TO DO
+        return arrayListOf<Measurement>()
     }
 
-    private fun postUser() {
-        val user = User(1.8,null, null, "Luka",
-            "Pavlic1", "dummy.user2@email.com")
-
-        val client = RetrofitRestClient()
-        client.updateUser(user)
+    private fun postMeasurement() {
+       // TO DO
     }
 
-    /*private fun getAllUsersAsynch() {
+    /*private fun getAllMeasurementsAsynch() {
         val client = RetrofitRestClient()
 
-        client.getUsersAsynch(this)
+        client.getMeasurementsAsynch(this)
     }*/
 }

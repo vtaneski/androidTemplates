@@ -1,7 +1,6 @@
 package com.example.rest_retrofit
 
 import android.util.Log
-import androidx.annotation.Nullable
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -9,32 +8,34 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 
-const val user_email = "dummy.user2@email.com"
-const val base_url = "http://164.8.250.18:8080/weather/rest/"
-const val api_key = "API-Key: 3cbd4dbd-3217-4389-94a0-b9ae0627ed56"
+const val user_email = "dummy@user.si"
+const val base_url = "http://164.8.250.18:8080/measurements/"
+const val api_key = "API-Key: 16ec1e09-aa26-446c-b6fa-f73fa89fee53"
 
 interface RetrofitService {
 
-    @GET("users")
-    fun getAllUsers(): Call<List<User>>
+    // TO DO
+    // getMeasurements
 
-    @PUT("users")
-    fun putUser(@Body user: User): Call<Void>
+    //TO DO
+    // postMeasurement
+
+    @Headers("user: $user_email", api_key)
+    @DELETE("rest/measurements/{id}")
+    fun deleteMeasurement(@Path("id") id: String): Call<Void>
 }
 
 class RetrofitRestClient {
 
-    fun updateUser(u :User) {
-        Log.i("RetrofitService","RetrofitRestClient.putUser")
-        val res = getService().putUser(u).execute()
-        Log.i("RetrofitService",res.toString())
+    public fun addMeasurement(m: Measurement) {
+        // TO DO
+        // postMeasurement execute
     }
 
-    fun getUsers() : ArrayList<User> {
-        Log.i("RetrofitService","RetrofitRestClient.getAllUsers")
-        val res = getService().getAllUsers().execute()
-        Log.i("RetrofitService",res.body().toString())
-        return convert(res.body())
+    public fun getAllMeasurements() : ArrayList<Measurement> {
+        // TO DO
+        // getAllMEasurements execute
+        return arrayListOf<Measurement>()
     }
 
     private fun getService() :RetrofitService {
@@ -45,31 +46,31 @@ class RetrofitRestClient {
         return retrofit.create(RetrofitService::class.java)
     }
 
-    private fun convert(r :List<User>?):ArrayList<User> {
-        val res= arrayListOf<User>()
+    private fun convert(r :List<Measurement>?) :ArrayList<Measurement> {
+        var res= arrayListOf<Measurement>()
         r?.forEach {
-            res.add(User(it.bodyHeigth, null, null,
-                it.name,it.surname,it.userId))
+            res.add(Measurement(it.comment, it.geo, it.id, it. label ,
+                it.measurementType, it.timeStamp, it.unit, it.userEmail, it.value))
         }
-        return res
+        return res;
     }
 
     //ASINHRONO
-    /*fun getUsersAsynch(callback: ServiceCallback){
-        Log.i("RetrofitService","RetrofitRestClient.getUsersAsynch")
-        var users: ArrayList<User>? = null
+    /*fun getMeasurementsAsynch(callback: ServiceCallback){
+        Log.i("RetrofitService","RetrofitRestClient.getMeasurementsAsynch")
+        var measurements: ArrayList<Measurement>? = null
 
-        getService().getAllUsers().enqueue(object : Callback<List<User>> {
-            override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
+        getService().getMeasurements().enqueue(object : Callback<List<Measurement>> {
+            override fun onResponse(call: Call<List<Measurement>>, response: Response<List<Measurement>>) {
                 if (response.code() == 200) {
-                    Log.i("RetrofitService","Rresponse: ${response.body()}")
-                    users = convert(response.body())
+                    Log.i("RetrofitService","Response: ${response.body()}")
+                    measurements = convert(response.body())
 
-                    callback.onSuccess(users ?: arrayListOf<User>())
+                    callback.onSuccess(measurements ?: arrayListOf<Measurement>())
                 }
             }
 
-            override fun onFailure(call: Call<List<User>>, t: Throwable) {
+            override fun onFailure(call: Call<List<Measurement>>, t: Throwable) {
             }
         })
     }*/

@@ -28,24 +28,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun savePreferenceData(property: String) {
-        val pref: SharedPreferences = getSharedPreferences("user_details",MODE_PRIVATE)
-        val editor: Editor = pref.edit()
-
-        editor.putString("property", property)
-        editor.apply()
-        Toast.makeText(applicationContext, "Property saved", Toast.LENGTH_SHORT).show()
+        // TO DO
     }
 
     private fun getPreferencesData(): String {
-        val pref: SharedPreferences = getSharedPreferences("user_details",MODE_PRIVATE)
+       // TO DO
 
-        return pref.getString("property", "property does not exist") ?: "property does not exist"
+        return ""
     }
 
     private fun clearPreferencesData() {
-        val pref: SharedPreferences = getSharedPreferences("user_details",MODE_PRIVATE)
-        val editor: Editor = pref.edit()
-        editor.clear()
-        editor.apply()
+        // TO DO
     }
 }

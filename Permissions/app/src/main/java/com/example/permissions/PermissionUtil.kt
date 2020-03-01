@@ -17,10 +17,8 @@ class PermissionUtil (private val activity: AppCompatActivity) {
      * Checks whether or not the user grant us to access READ_EXTERNAL_STORAGE.
      */
     fun checkReadExternalPermissions(): Boolean {
-        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE)
-            == PackageManager.PERMISSION_GRANTED) {
-            return true
-        }
+        // Check if READ_EXTERNAL_STORAGE permission already exist
+        // TO DO
         return false
     }
 
@@ -28,10 +26,8 @@ class PermissionUtil (private val activity: AppCompatActivity) {
      * Checks whether or not the user grant us to access WRITE_EXTERNAL_STORAGE.
      */
     fun checkWriteExternalPermissions(): Boolean {
-        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            == PackageManager.PERMISSION_GRANTED) {
-            return true
-        }
+        // Check if WRITE_EXTERNAL_STORAGE permission already exist
+        // TO DO
         return false
     }
 
@@ -41,13 +37,7 @@ class PermissionUtil (private val activity: AppCompatActivity) {
      * if they are not already granted.
      */
     fun requestReadPermissions() {
-        ActivityCompat.requestPermissions(
-            activity,
-            arrayOf(
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            ),
-            READ_EXTERNAL_PERMISSION_ID
-        )
+        // TO DO
     }
 
     /**
@@ -56,12 +46,6 @@ class PermissionUtil (private val activity: AppCompatActivity) {
      * if they are not already granted.
      */
     fun requestWritePermissions() {
-        ActivityCompat.requestPermissions(
-            activity,
-            arrayOf(
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-            ),
-            WRITE_EXTERNAL_PERMISSION_ID
-        )
+        // TO DO
     }
 }

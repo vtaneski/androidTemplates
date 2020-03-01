@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity() {
 
         buttonRead.setOnClickListener {
             readExternalDataStreamPermissions()
-            //getStorageLocations()
         }
     }
 
@@ -49,16 +48,8 @@ class MainActivity : AppCompatActivity() {
                     val fileContent = "Content of file1"
                     saveExternalDataStream(fileName, fileContent)
                 } else {
-                    if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                        Toast.makeText(
-                                this,
-                                "Write permission is needed in order to save the file",
-                                Toast.LENGTH_SHORT
-                        ).show()
-                    } else {
-                        //permission from popup was denied
-                        Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
-                    }
+                    // Check if you need to show additional explanation
+                    // TO DO
                 }
             }
             util.READ_EXTERNAL_PERMISSION_ID -> {
@@ -67,48 +58,11 @@ class MainActivity : AppCompatActivity() {
                     val fileName = "File1"
                     readExternalDataStream(fileName)
                 } else {
-                    if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                        Toast.makeText(
-                                this,
-                                "Read permission is needed in order to read the file",
-                                Toast.LENGTH_SHORT
-                        ).show()
-                    } else {
-                        //permission from popup was denied
-                        Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
-                    }
+                    // Check if you need to show additional explanation
+                    // TO DO
                 }
             }
         }
-    }
-
-    /** Checks if a volume containing external storage is available
-     * for read and write.
-     */
-    private fun isExternalStorageWritable(): Boolean {
-        return Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED
-    }
-
-    /**
-     * Checks if a volume containing external storage is available to at least read.
-     */
-    private fun isExternalStorageReadable(): Boolean {
-        return Environment.getExternalStorageState() in
-                setOf(Environment.MEDIA_MOUNTED, Environment.MEDIA_MOUNTED_READ_ONLY)
-    }
-
-    private fun getStorageLocations() {
-        val stringBuilder: StringBuilder = StringBuilder()
-
-        val externalStorageVolumes: Array<out File> = ContextCompat.getExternalFilesDirs(applicationContext, null)
-        var i=0
-        for (file in externalStorageVolumes) {
-            i++
-            stringBuilder.appendln("$i: $file")
-        }
-
-        //Displaying data on EditText
-        Log.i("Main", stringBuilder.toString())
     }
 
     /**
@@ -121,10 +75,11 @@ class MainActivity : AppCompatActivity() {
         if (fileName.trim() != "") {
             when (util.checkWriteExternalPermissions()) {
                 true -> {
-                    saveExternalDataStream(fileName, fileContent)
+                    // if we already have permissions
                 }
                 false -> {
-                    util.requestWritePermissions()
+                    // if we do not have permissions
+                    // ask for permissions
                 }
             }
         } else{
@@ -133,21 +88,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun saveExternalDataStream(fileName: String, fileContent: String) {
-        val myExternalFile = File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), fileName)
-
-        if (isExternalStorageWritable()) {
-            try {
-                val fileOutputStream = FileOutputStream(myExternalFile)
-                fileOutputStream.write(fileContent.toByteArray())
-                fileOutputStream.close()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-            Toast.makeText(applicationContext, "data save", Toast.LENGTH_SHORT).show()
-
-        } else{
-            Toast.makeText(applicationContext,"media storage not writable", Toast.LENGTH_LONG).show()
-        }
+        Toast.makeText(applicationContext, "data save", Toast.LENGTH_SHORT).show()
     }
 
     /**
@@ -159,10 +100,11 @@ class MainActivity : AppCompatActivity() {
         if (fileName.trim() != "") {
             when (util.checkReadExternalPermissions()) {
                 true -> {
-                    readExternalDataStream(fileName)
+                    // if we already have permissions
                 }
                 false -> {
-                    util.requestReadPermissions()
+                    // if we do not have permissions
+                    // ask for permissions
                 }
             }
         }else{
@@ -171,27 +113,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun readExternalDataStream(fileName: String) {
-        val myExternalFile = File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), fileName)
-
-        if (isExternalStorageReadable() && myExternalFile.exists()) {
-            try {
-                val fileInputStream = FileInputStream(myExternalFile)
-                val inputStreamReader = InputStreamReader(fileInputStream)
-                val bufferedReader = BufferedReader(inputStreamReader)
-                val stringBuilder: StringBuilder = StringBuilder()
-                var text: String? = null
-
-                while ({ text = bufferedReader.readLine(); text }() != null) {
-                    stringBuilder.append(text)
-                }
-
-                //Displaying data on EditText
-               Log.i("Mian", stringBuilder.toString())
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-        } else{
-            Toast.makeText(applicationContext,"media storage not readable", Toast.LENGTH_LONG).show()
-        }
+        Toast.makeText(applicationContext,"Reading file...", Toast.LENGTH_LONG).show()
     }
 }
